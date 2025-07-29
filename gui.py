@@ -125,12 +125,13 @@ class BudgetGUI:
         self._save_last(calc, saldo, yr, mo, gen_time)
 
     def _update_summary(self, calc, saldo=0, gen_time=None):
-        final = calc.total - saldo
-        if final < 0:
-            final = 0
+        krl_after = calc.total_krl - saldo
+        if krl_after < 0:
+            krl_after = 0
+        final = krl_after + calc.total_krd
         self.card_total.config(text=f"Total: Rp{calc.total:,}")
         self.card_final.config(text=f"Setelah Saldo: Rp{final:,}")
-        self.card_krl.config(text=f"KRL: Rp{calc.total_krl:,}")
+        self.card_krl.config(text=f"KRL: Rp{krl_after:,}")
         self.card_krd.config(text=f"KRD: Rp{calc.total_krd:,}")
         if gen_time:
             self.gen_label.config(text=f"Dibuat: {gen_time}")
